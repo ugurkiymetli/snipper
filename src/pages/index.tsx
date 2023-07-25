@@ -19,6 +19,9 @@ export default function Home() {
             <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
               Snipper <span className="text-[hsl(280,100%,70%)]">.</span> Video
             </h1>
+            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+              Work In Progress 🚧
+            </h2>
             <div style={{ marginLeft: "50%" }} className=" w-full">
               <span className=" flex max-w-xs cursor-pointer flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20">
                 <h3 className="text-2xl font-bold">Upload Video</h3>

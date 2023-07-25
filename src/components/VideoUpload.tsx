@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import Dropzone, { type FileRejection } from "react-dropzone";
 import { createFFmpeg } from "@ffmpeg/ffmpeg";
 import VideoPlayer from "./VideoPlayer";
+import { formatBytes } from "~/utils/utils";
 
 const ffmpeg = createFFmpeg({ log: true });
 
@@ -24,6 +25,9 @@ const VideoUpload: React.FC = () => {
 
   const handleVideoUpload = (file: File) => {
     // Implement the logic to handle the uploaded video file
+    alert(
+      `Upload success! Name: ${file.name} - Size ${formatBytes(file.size)}`
+    );
     setVideoFile(file);
   };
   const onDrop = useCallback(
