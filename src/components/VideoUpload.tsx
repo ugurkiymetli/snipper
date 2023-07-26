@@ -51,22 +51,25 @@ const VideoUpload: React.FC = () => {
           <VideoPlayer src={URL.createObjectURL(videoFile)} />
         </>
       ) : (
-        <Dropzone
-          onDrop={onDrop}
-          accept={{ video: ["*"] }}
-          multiple={false}
-          maxFiles={1}
-        >
-          {({ getRootProps, getInputProps }) => (
-            <div {...getRootProps()}>
-              <input {...getInputProps()} />
-              <p>
-                Drag and drop a video file here, or <strong>click</strong> to
-                select a video.
-              </p>
-            </div>
-          )}
-        </Dropzone>
+        <>
+          <h3 className="text-2xl font-bold">Upload Video</h3>
+          <Dropzone
+            onDrop={onDrop}
+            accept={{ "video/*": [".mp4", ".mov"] }}
+            multiple={false}
+            maxFiles={1}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <p>
+                  Drag and drop a video file here, or <strong>click</strong> to
+                  select a video.
+                </p>
+              </div>
+            )}
+          </Dropzone>
+        </>
       )}
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
