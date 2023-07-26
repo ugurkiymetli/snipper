@@ -16,7 +16,6 @@ export const VideoSnip: React.FC<VideoSnipProps> = ({ ffmpeg, videoFile }) => {
     const outputName = name.replace(/\.[^/.]+$/, "");
 
     const videoData = await fetchFile(videoFile);
-    console.log({ videoData });
     ffmpeg.FS("writeFile", name, videoData);
 
     const videoDuration = "15";
@@ -54,6 +53,7 @@ export const VideoSnip: React.FC<VideoSnipProps> = ({ ffmpeg, videoFile }) => {
         });
         segments.push(segmentFile);
       } catch (error) {
+        console.error("Snip error", error);
         // File does not exist, break the loop
         break;
       }

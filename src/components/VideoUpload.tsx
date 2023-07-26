@@ -26,7 +26,6 @@ const VideoUpload: React.FC = () => {
     // Implement the logic to handle the uploaded video file
     const video = document.createElement("video");
     video.src = URL.createObjectURL(file);
-    console.log({ video });
     video.onloadedmetadata = () => {
       const minimumDuration = 15000; // 15 seconds in milliseconds
       if (video.duration * 1000 < minimumDuration) {
