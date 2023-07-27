@@ -1,3 +1,4 @@
+"use client";
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from "react";
 import Dropzone, { type FileRejection } from "react-dropzone";
@@ -32,9 +33,7 @@ const VideoUpload: React.FC = () => {
         alert("Video duration must be at least 15 seconds.");
       } else {
         alert(
-          `Upload success! Name: ${file.name}} -  Size ${formatBytes(
-            file.size
-          )}`
+          `Upload success! Name: ${file.name} -  Size ${formatBytes(file.size)}`
         );
         setVideoFile(file);
       }

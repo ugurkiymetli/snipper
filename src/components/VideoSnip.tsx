@@ -1,3 +1,4 @@
+"use client";
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { fetchFile, type FFmpeg } from "@ffmpeg/ffmpeg";
 import { useState } from "react";
