@@ -7,11 +7,49 @@ interface VideoSnipProps {
   ffmpeg: FFmpeg;
   videoFile: File;
 }
+function DownloadSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      className="h-6 w-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+      />
+    </svg>
+  );
+}
+function SnipSvg() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      className="mr-2 h-6 w-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M7.848 8.25l1.536.887M7.848 8.25a3 3 0 11-5.196-3 3 3 0 015.196 3zm1.536.887a2.165 2.165 0 011.083 1.839c.005.351.054.695.14 1.024M9.384 9.137l2.077 1.199M7.848 15.75l1.536-.887m-1.536.887a3 3 0 11-5.196 3 3 3 0 015.196-3zm1.536-.887a2.165 2.165 0 001.083-1.838c.005-.352.054-.695.14-1.025m-1.223 2.863l2.077-1.199m0-3.328a4.323 4.323 0 012.068-1.379l5.325-1.628a4.5 4.5 0 012.48-.044l.803.215-7.794 4.5m-2.882-1.664A4.331 4.331 0 0010.607 12m3.736 0l7.794 4.5-.802.215a4.5 4.5 0 01-2.48-.043l-5.326-1.629a4.324 4.324 0 01-2.068-1.379M14.343 12l-2.882 1.664"
+      />
+    </svg>
+  );
+}
 
 export const VideoSnip: React.FC<VideoSnipProps> = ({ ffmpeg, videoFile }) => {
   const [snippedSegments, setSnippedSegments] = useState<File[]>([]);
+  const [isFFmpegWorking, setIsFFmpegWorking] = useState(false);
 
   const snipVideo = async (videoFile: File) => {
+    setIsFFmpegWorking(true);
     const name = videoFile.name;
     const outputName = name.replace(/\.[^/.]+$/, "");
 
@@ -60,6 +98,8 @@ export const VideoSnip: React.FC<VideoSnipProps> = ({ ffmpeg, videoFile }) => {
     }
     // Cleanup temporary files
     ffmpeg.FS("unlink", name);
+    setIsFFmpegWorking(false);
+
     return segments;
   };
   const handleSnip = async () => {
@@ -72,25 +112,14 @@ export const VideoSnip: React.FC<VideoSnipProps> = ({ ffmpeg, videoFile }) => {
 
   return (
     <>
+      {isFFmpegWorking ? <h2>Working...</h2> : null}
       <button
         onClick={async () => handleSnip()}
         className="mt-4 inline-flex items-center rounded bg-white/20 px-4 py-2 font-bold text-gray-800 hover:bg-gray-400"
-        disabled={!ffmpeg.isLoaded}
+        disabled={isFFmpegWorking}
+        style={{ cursor: isFFmpegWorking ? "wait" : "default" }}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-          className="mr-2 h-6 w-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M7.848 8.25l1.536.887M7.848 8.25a3 3 0 11-5.196-3 3 3 0 015.196 3zm1.536.887a2.165 2.165 0 011.083 1.839c.005.351.054.695.14 1.024M9.384 9.137l2.077 1.199M7.848 15.75l1.536-.887m-1.536.887a3 3 0 11-5.196 3 3 3 0 015.196-3zm1.536-.887a2.165 2.165 0 001.083-1.838c.005-.352.054-.695.14-1.025m-1.223 2.863l2.077-1.199m0-3.328a4.323 4.323 0 012.068-1.379l5.325-1.628a4.5 4.5 0 012.48-.044l.803.215-7.794 4.5m-2.882-1.664A4.331 4.331 0 0010.607 12m3.736 0l7.794 4.5-.802.215a4.5 4.5 0 01-2.48-.043l-5.326-1.629a4.324 4.324 0 01-2.068-1.379M14.343 12l-2.882 1.664"
-          />
-        </svg>
+        <SnipSvg />
         <span className="font-bold">Snip</span>
       </button>
       {snippedSegments.length > 0 && (
@@ -108,20 +137,7 @@ export const VideoSnip: React.FC<VideoSnipProps> = ({ ffmpeg, videoFile }) => {
                     href={URL.createObjectURL(segment)}
                     download={`segment-${index + 1}.mp4`}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="h-6 w-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-                      ></path>
-                    </svg>
+                    <DownloadSvg />
                   </a>
                 </button>
               </div>
