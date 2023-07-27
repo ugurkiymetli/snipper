@@ -1,8 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
 import Snipper from "~/components/Snipper";
+import useDeviceDetect from "~/utils/useDeviceDetect";
 
 export default function Home() {
+  const { isMobile } = useDeviceDetect();
   return (
     <>
       <Head>
@@ -23,9 +25,18 @@ export default function Home() {
               Work In Progress 🛠️
             </span>
           </h5>
-          <div className="w-full max-w-md">
-            <Snipper />
-          </div>
+          {isMobile ? (
+            <div className=" mx-auto max-w-sm rounded-lg bg-gradient-to-r from-[#ebe01a] to-[#eb9e1a] p-6 shadow-lg">
+              <div className="text-center">
+                <h3 className="mb-4 text-2xl font-bold text-red-600">Oops!</h3>
+                <p className="text-lg text-[#292929]">
+                  This app is designed for desktop use only and may not work
+                  properly on mobile devices.
+                </p>
+              </div>
+            </div>
+          ) : null}
+          <div className="w-full max-w-md">{!isMobile && <Snipper />}</div>
         </div>
       </main>
       <footer
