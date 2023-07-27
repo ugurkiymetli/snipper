@@ -2,17 +2,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState } from "react";
 import Dropzone, { type FileRejection } from "react-dropzone";
-import { createFFmpeg } from "@ffmpeg/ffmpeg";
+import { createFFmpeg, type FFmpeg } from "@ffmpeg/ffmpeg";
 import VideoPlayer from "./VideoPlayer";
 import { formatBytes } from "~/utils/utils";
 import { VideoSnip } from "./VideoSnip";
 
+const ffmpeg: FFmpeg = createFFmpeg({
+  log: true,
+  corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js",
+});
 const VideoUpload: React.FC = () => {
-  const ffmpeg = createFFmpeg({
-    log: true,
-    corePath: "https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js",
-  });
-
   useEffect(() => {
     void (async function () {
       await ffmpeg.load().then(() => setFFmpegLoaded(true));

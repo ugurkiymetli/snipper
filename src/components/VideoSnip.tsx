@@ -13,6 +13,7 @@ export const VideoSnip: React.FC<VideoSnipProps> = ({ ffmpeg, videoFile }) => {
   const [snippedSegments, setSnippedSegments] = useState<File[]>([]);
 
   const snipVideo = async (videoFile: File) => {
+    if (!ffmpeg.isLoaded) await ffmpeg.load();
     const name = videoFile.name;
     const outputName = name.replace(/\.[^/.]+$/, "");
 
