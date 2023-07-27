@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/require-await */
 "use client";
 import Head from "next/head";
 import Link from "next/link";
@@ -43,4 +47,16 @@ export default function Home() {
       </footer>
     </>
   );
+}
+export async function getServerSideProps(context: {
+  res: { setHeader: (arg0: string, arg1: string) => void };
+}) {
+  // set HTTP header
+
+  context.res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+  context.res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+  console.log({ isSecureContext: context });
+  return {
+    props: {},
+  };
 }
