@@ -6,3 +6,6 @@ export function formatBytes(a: number, b = 2) {
     ["Bytes", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"][d]
   }`;
 }
+
+export const FFmpeg_URL =
+  "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js";

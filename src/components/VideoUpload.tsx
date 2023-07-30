@@ -4,12 +4,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import Dropzone, { type FileRejection } from "react-dropzone";
 import { createFFmpeg, type FFmpeg } from "@ffmpeg/ffmpeg";
 import VideoPlayer from "./VideoPlayer";
-import { formatBytes } from "~/utils/utils";
+import { FFmpeg_URL, formatBytes } from "~/utils/utils";
 import { VideoSnip } from "./VideoSnip";
 
 const ffmpeg: FFmpeg = createFFmpeg({
   log: true,
-  corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js",
+  corePath: FFmpeg_URL,
 });
 const VideoUpload: React.FC = () => {
   useEffect(() => {
