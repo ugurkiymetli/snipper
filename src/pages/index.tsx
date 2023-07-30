@@ -22,12 +22,15 @@ function WorkInProgress() {
 
 function MobileAlert() {
   return (
-    <div className=" mx-auto max-w-sm rounded-lg bg-gradient-to-r from-[#ebe01a] to-[#eb9e1a] p-6 shadow-lg">
+    <div className="mx-auto max-w-sm rounded-lg p-6 ">
       <div className="text-center">
-        <h3 className="mb-4 text-2xl font-bold text-red-600">Oops!</h3>
-        <p className="text-lg text-[#292929]">
-          This app is designed for desktop use only and may not work properly on
-          mobile devices.
+        <h3 className="mb-4 border-b-2 border-solid	border-[#2c3e50] pb-2 text-2xl	font-bold text-[#e74c3c]">
+          Sorry 😔
+        </h3>
+        <p className="text-lg text-[#ecf0f1]">
+          This app is only working on desktop and some of the mobile devices.
+          May not work properly on all mobile devices. We are working on more
+          mobile compatibility.
         </p>
       </div>
     </div>
@@ -56,7 +59,11 @@ function Footer() {
 }
 
 export default function Home() {
-  const { isCompatible } = useFFMegCompatible();
+  const { isCompatible, isLoading } = useFFMegCompatible();
+
+  const isRenderOk = isCompatible && !isLoading;
+  const isRenderNotOk = !isCompatible && !isLoading;
+
   return (
     <>
       <Head>
@@ -71,8 +78,8 @@ export default function Home() {
         <div className="container mx-auto flex max-w-screen-xl flex-col items-center justify-center gap-12">
           <SnipperLogo />
           <WorkInProgress />
-          {!isCompatible ? <MobileAlert /> : null}
-          <div className="w-full max-w-md">{isCompatible && <Snipper />}</div>
+          {isRenderNotOk ? <MobileAlert /> : null}
+          <div className="w-full max-w-md">{isRenderOk && <Snipper />}</div>
         </div>
       </main>
       <Footer />

@@ -8,7 +8,6 @@ import { FFmpeg_URL, formatBytes } from "~/utils/utils";
 import { VideoSnip } from "./VideoSnip";
 
 const ffmpeg: FFmpeg = createFFmpeg({
-  log: true,
   corePath: FFmpeg_URL,
 });
 const VideoUpload: React.FC = () => {
