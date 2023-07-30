@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Snipper from "~/components/Snipper";
-import useDeviceDetect from "~/utils/useDeviceDetect";
+import useFFMegCompatible from "~/utils/useFFMegCompatible";
 
 function SnipperLogo() {
   return (
@@ -56,7 +56,7 @@ function Footer() {
 }
 
 export default function Home() {
-  const { isMobile } = useDeviceDetect();
+  const { isCompatible } = useFFMegCompatible();
   return (
     <>
       <Head>
@@ -71,8 +71,8 @@ export default function Home() {
         <div className="container mx-auto flex max-w-screen-xl flex-col items-center justify-center gap-12">
           <SnipperLogo />
           <WorkInProgress />
-          {isMobile ? <MobileAlert /> : null}
-          <div className="w-full max-w-md">{!isMobile && <Snipper />}</div>
+          {!isCompatible ? <MobileAlert /> : null}
+          <div className="w-full max-w-md">{isCompatible && <Snipper />}</div>
         </div>
       </main>
       <Footer />
