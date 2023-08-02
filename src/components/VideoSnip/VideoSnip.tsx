@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { fetchFile, type FFmpeg } from "@ffmpeg/ffmpeg";
-import { enqueueSnackbar } from "notistack";
+// import { enqueueSnackbar } from "notistack";
 import React, { useState } from "react";
 import SnipButton from "./SnipButton";
 import SnippedVideos from "./SnippedVideos";
@@ -62,8 +62,8 @@ export const VideoSnip: React.FC<VideoSnipProps> = ({
         });
         segments.push(segmentFile);
       } catch (error) {
-        debugger;
-        enqueueSnackbar("Snip error! ", { variant: "error" });
+        // enqueueSnackbar("Snip error! ", { variant: "error" });
+        console.log("Snip error! ", { variant: "error" });
         // File does not exist, break the loop
         break;
       }
