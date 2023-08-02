@@ -37,27 +37,6 @@ function MobileAlert() {
   );
 }
 
-function Footer() {
-  return (
-    <footer
-      style={{
-        marginBottom: "2.5%",
-        marginLeft: "2.5%",
-        width: "95%",
-      }}
-      className="fixed bottom-0 left-0 z-20 block w-full rounded-lg bg-white/10 p-2.5 shadow hover:bg-white/20"
-    >
-      <Link href="https://ugurkiymetli.com/" target="_blank">
-        <div className="mx-auto w-full max-w-screen-xl p-4 sm:flex sm:items-center sm:justify-center">
-          <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
-            ugurkiymetli - 2023
-          </span>
-        </div>
-      </Link>
-    </footer>
-  );
-}
-
 export default function Home() {
   const { isCompatible, isLoading } = useFFMegCompatible();
 
@@ -76,13 +55,22 @@ export default function Home() {
       </Head>
       <main className="justify-space-between mb-2 flex min-h-screen flex-col items-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <div className="container mx-auto flex max-w-screen-xl flex-col items-center justify-center gap-12">
-          <SnipperLogo />
+          <div>
+            <SnipperLogo />
+            <span className="pt-4 text-2xl italic text-white/80">
+              <>
+                made by{" "}
+                <Link href="https://ugurkiymetli.com/" target="_blank">
+                  <span className="underline">uğur</span>
+                </Link>
+              </>
+            </span>
+          </div>
           <WorkInProgress />
           {isRenderNotOk ? <MobileAlert /> : null}
           <div className="w-full max-w-md">{isRenderOk && <Snipper />}</div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }
