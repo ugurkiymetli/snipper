@@ -1,46 +1,47 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { enqueueSnackbar } from "notistack";
-import * as React from "react";
-import { useState } from "react";
+import { useCallback } from "react";
 import Dropzone, { type FileRejection } from "react-dropzone";
-import { formatBytes } from "~/utils/utils";
+import { createVideo, formatBytes, timeFormatter } from "~/utils/utils";
 import UploadSvg from "./icons/UploadSvg";
 
 export interface VideoDropzoneProps {
   setError: React.Dispatch<React.SetStateAction<string | null>>;
   ffmpegLoaded: boolean;
   setVideoFile: React.Dispatch<React.SetStateAction<File | null>>;
+  length: number;
+  setLength: React.Dispatch<React.SetStateAction<number>>;
+  setVideoDuration: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export function VideoDropzone({
   setError,
   setVideoFile,
   ffmpegLoaded,
+  length,
+  setVideoDuration,
 }: VideoDropzoneProps) {
+  const minimumDuration = length * 1000; // 15 seconds in milliseconds
   const handleVideoUpload = (file: File) => {
-    // Implement the logic to handle the uploaded video file
-    const video = document.createElement("video");
-    video.src = URL.createObjectURL(file);
+    const video = createVideo(file);
     video.onloadedmetadata = () => {
-      const minimumDuration = 15000; // 15 seconds in milliseconds
-      if (video.duration * 1000 < minimumDuration) {
-        enqueueSnackbar("Video duration must be at least 15 seconds!", {
+      const { duration } = video;
+
+      if (duration * 1000 < minimumDuration) {
+        enqueueSnackbar("Video duration must be longer than 15 seconds!", {
           variant: "error",
         });
       } else {
-        enqueueSnackbar(
-          `Upload success! Name: ${file.name}} -  Size ${formatBytes(
-            file.size
-          )}`,
-          {
-            variant: "success",
-          }
-        );
+        const msg = `Upload success! ${file.name} - ${formatBytes(
+          file.size
+        )} - ${timeFormatter(duration)} `;
+        enqueueSnackbar(msg, { variant: "success" });
         setVideoFile(file);
+        setVideoDuration(duration);
       }
     };
   };
-  const onDrop = React.useCallback(
+  const onDrop = useCallback(
     (acceptedFiles: File[], fileRejections: FileRejection[]) => {
       setError("Invalid file format. Please upload a valid video file.");
       if (fileRejections.length > 0) {
@@ -81,7 +82,4 @@ export function VideoDropzone({
       )}
     </Dropzone>
   );
-}
-function setVideoFile(file: File) {
-  throw new Error("Function not implemented.");
 }
