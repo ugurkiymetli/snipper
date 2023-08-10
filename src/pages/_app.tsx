@@ -11,7 +11,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         horizontal: "center",
       }}
     >
-      <Component {...pageProps} />;
+      <div className="bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+        <Component {...pageProps} />;
+      </div>
     </SnackbarProvider>
   );
 };

@@ -1,5 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
 "use client";
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { createFFmpeg, type FFmpeg } from "@ffmpeg/ffmpeg";
@@ -11,6 +13,7 @@ import { VideoDropzone } from "./VideoDropzone";
 const ffmpeg: FFmpeg = createFFmpeg({
   corePath: FFmpeg_URL,
 });
+
 const VideoUpload: React.FC = () => {
   useEffect(() => {
     void (async function () {

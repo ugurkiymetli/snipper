@@ -53,7 +53,7 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="justify-space-between mb-2 flex min-h-screen flex-col items-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <main className="justify-space-between mb-2 flex min-h-screen flex-col items-center ">
         <div className="container mx-auto flex max-w-screen-xl flex-col items-center justify-center gap-12">
           <div>
             <SnipperLogo />
